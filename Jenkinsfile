@@ -19,8 +19,19 @@ pipeline {
     }
 
     stage('Test') {
-      steps {
-        sh 'echo test'
+      parallel {
+        stage('Test') {
+          steps {
+            sh 'echo test'
+          }
+        }
+
+        stage('test2') {
+          steps {
+            echo 'test2'
+          }
+        }
+
       }
     }
 
