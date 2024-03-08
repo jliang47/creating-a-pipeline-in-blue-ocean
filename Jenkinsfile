@@ -2,25 +2,18 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
-            sh 'echo build'
-          }
-        }
-
-        stage('build2') {
-          steps {
-            sh 'echo build2'
-          }
-        }
-
+      steps {
+        sh 'echo build'
       }
     }
 
     stage('test') {
       steps {
         sh 'echo test'
+        withSonarQubeEnv('sonar_demo') {
+          waitForQualityGate true
+        }
+
       }
     }
 
